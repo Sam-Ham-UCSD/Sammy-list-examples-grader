@@ -8,7 +8,21 @@ mkdir grading-area
 git clone $1 student-submission
 echo 'Finished cloning'
 
+if[[-f student-submission/ListExamples.java]]; 
+then
+    echo "ListExamples.java exists"
+else
+    echo "ListExamples.java does not exist"
+    echo "Grade: 0"
+    exit
+fi
 
+cp student-submission/ListExamples.java TestListExamples.java grading-area
+cp -r lib grading-area
+
+cd grading-area
+javac -cp $CPATH ListExamples.java TestListExamples.java
+echo "The exit code of javac is $?"
 # Draw a picture/take notes on the directory structure that's set up after
 # getting to this point
 
